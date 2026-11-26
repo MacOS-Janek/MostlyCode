@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09070f">
+  <meta name="description" content="Mostly Code — no logging in, no registering, pure coding. Just for you locally.">
+  <title>Mostly Code — Pure coding. Locally.</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #09070f;
+      --surface: #100d19;
+      --surface-2: #151020;
+      --border: rgba(190, 163, 255, .13);
+      --muted: #a49bb8;
+      --text: #f7f3ff;
+      --violet: #9b6bff;
+      --violet-bright: #b794ff;
+      --violet-deep: #6d35d6;
+      --green: #8fe6bd;
+      --radius: 22px;
+      --shadow: 0 25px 100px rgba(0,0,0,.42);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse at 76% 10%, rgba(108, 48, 205, .18), transparent 34rem),
+        radial-gradient(ellipse at 10% 47%, rgba(91, 43, 163, .11), transparent 30rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      position: fixed; inset: 0; pointer-events: none; content: "";
+      opacity: .20;
+      background-image: linear-gradient(rgba(185,157,255,.07) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(185,157,255,.07) 1px, transparent 1px);
+      background-size: 58px 58px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .wrap { width: min(1160px, calc(100% - 48px)); margin: 0 auto; position: relative; }
+    .nav {
+      height: 82px; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(201,178,255,.10);
+    }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 800; letter-spacing: -.04em; }
+    .brand-mark {
+      width: 36px; height: 36px; display: grid; place-items: center; border-radius: 12px;
+      color: white; font-size: 17px; font-weight: 900;
+      background: linear-gradient(145deg, #bc98ff, #7439d4 72%);
+      box-shadow: 0 7px 25px rgba(142,82,255,.32), inset 0 1px 0 rgba(255,255,255,.4);
+    }
+    .brand-word span { color: var(--violet-bright); }
+    .nav-right { display: flex; align-items: center; gap: 28px; color: #b5acc7; font-size: 13px; }
+    .nav-right a:not(.nav-download):hover { color: white; }
+    .nav-download {
+      padding: 10px 16px; border: 1px solid rgba(190,163,255,.25); border-radius: 10px;
+      color: white; background: rgba(153,104,255,.10); transition: .2s ease;
+    }
+    .nav-download:hover { background: rgba(153,104,255,.20); border-color: rgba(190,163,255,.55); transform: translateY(-1px); }
+    .hero {
+      min-height: 690px; display: grid; grid-template-columns: 1.02fr .98fr;
+      align-items: center; gap: 54px; padding: 70px 0 88px;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px; color: #c9b3ff;
+      padding: 8px 12px; border: 1px solid rgba(179,139,255,.2);
+      border-radius: 999px; background: rgba(126,77,215,.09); font-size: 11px;
+      font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    }
+    .pulse { width: 7px; height: 7px; border-radius: 50%; background: #ad82ff; box-shadow: 0 0 12px #a06cff; }
+    h1 {
+      margin: 25px 0 19px; max-width: 660px; font-size: clamp(52px, 6.5vw, 82px);
+      line-height: .99; letter-spacing: -.075em; font-weight: 820;
+    }
+    h1 .accent {
+      display: block; color: transparent;
+      background: linear-gradient(100deg, #eee4ff 4%, #b994ff 43%, #8c50ee 90%);
+      -webkit-background-clip: text; background-clip: text;
+    }
+    .hero-copy {
+      max-width: 530px; margin: 0; color: #b4abc5; font-size: clamp(16px, 1.6vw, 18px);
+      line-height: 1.8; letter-spacing: -.015em;
+    }
+    .hero-copy strong { color: #eee8fa; font-weight: 650; }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 32px; }
+    .download {
+      position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center;
+      gap: 12px; min-height: 54px; padding: 0 23px; border-radius: 13px;
+      background: linear-gradient(110deg, #a779ff, #793ee0 82%);
+      border: 1px solid rgba(226,209,255,.34); color: white; font-weight: 750; font-size: 15px;
+      box-shadow: 0 11px 35px rgba(121,62,224,.29), inset 0 1px 0 rgba(255,255,255,.26);
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    }
+    .download::after { content: ""; position: absolute; inset: 0; transform: translateX(-120%);
+      background: linear-gradient(100deg, transparent, rgba(255,255,255,.18), transparent); transition: transform .6s ease; }
+    .download:hover { transform: translateY(-3px); filter: brightness(1.08); box-shadow: 0 16px 42px rgba(121,62,224,.4); }
+    .download:hover::after { transform: translateX(120%); }
+    .download:active { transform: translateY(0); }
+    .download svg { width: 18px; height: 18px; }
+    .secondary {
+      min-height: 52px; display: inline-flex; align-items: center; gap: 9px; padding: 0 17px;
+      border: 1px solid var(--border); border-radius: 13px; color: #d3c9e6; font-size: 14px;
+      transition: .2s ease;
+    }
+    .secondary:hover { background: rgba(255,255,255,.04); border-color: rgba(190,163,255,.32); }
+    .fineprint { display: flex; flex-wrap: wrap; gap: 17px; margin-top: 22px; color: #8f879f; font-size: 11px; }
+    .fineprint span { display: inline-flex; align-items: center; gap: 7px; }
+    .fineprint svg { width: 13px; height: 13px; color: #a98aeb; }
+    .visual { position: relative; min-width: 0; }
+    .orb {
+      position: absolute; width: 420px; height: 420px; right: 0; top: 50%; transform: translate(8%,-50%);
+      border-radius: 50%; background: rgba(125,68,227,.2); filter: blur(85px); pointer-events: none;
+    }
+    .editor-card {
+      position: relative; z-index: 1; border: 1px solid rgba(199,174,255,.19); border-radius: 17px;
+      background: linear-gradient(145deg, rgba(26,20,39,.97), rgba(13,11,20,.98));
+      box-shadow: 0 35px 100px rgba(0,0,0,.5), 0 0 65px rgba(117,67,211,.13);
+      overflow: hidden; transform: perspective(1200px) rotateY(-5deg) rotateX(2deg);
+    }
+    .editor-top { height: 49px; padding: 0 16px; display: flex; align-items: center; gap: 7px; border-bottom: 1px solid rgba(195,172,255,.1); background: rgba(255,255,255,.018); }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #534866; }
+    .dot:first-child { background: #ef7c91; }.dot:nth-child(2) { background: #eab96d; }.dot:nth-child(3) { background: #70cba1; }
+    .editor-title { margin-left: 12px; color: #9389a8; font-size: 11px; }
+    .editor-body { display: grid; grid-template-columns: 132px 1fr; min-height: 335px; }
+    .filebar { padding: 19px 12px; border-right: 1px solid rgba(195,172,255,.09); color: #8e849f; font: 10px/2.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .filebar .label { color: #756b87; font-size: 9px; letter-spacing: .13em; margin-bottom: 8px; }
+    .file { display: block; padding: 0 7px; border-radius: 5px; white-space: nowrap; }
+    .file.active { color: #e3d2ff; background: rgba(148,99,235,.16); }
+    .file .cpp { color: #8fbcff; }.file .py { color: #f3d37e; }.file .hpp { color: #c2a0ff; }
+    .code {
+      padding: 26px 15px; overflow: hidden; color: #c9c1d9; font: 11px/2.05 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      white-space: nowrap;
+    }
+    .line { display: block; }.ln { display: inline-block; width: 27px; color: #5b5369; user-select: none; }
+    .kw { color: #c59aff; }.type { color: #8ec7ff; }.str { color: #b6df9e; }.fn { color: #e1bcff; }.comment { color: #756e83; font-style: italic; }.num { color: #e9b68c; }
+    .editor-bottom { display: flex; align-items: center; justify-content: space-between; padding: 9px 14px; border-top: 1px solid rgba(195,172,255,.1); color: #8d84a0; font-size: 9px; }
+    .editor-bottom .ready { color: #93dfb9; }
+    .floating {
+      position: absolute; z-index: 2; right: -17px; bottom: -27px; padding: 13px 16px;
+      display: flex; align-items: center; gap: 11px; border-radius: 13px;
+      background: rgba(25,20,37,.96); border: 1px solid rgba(197,171,255,.22);
+      box-shadow: 0 14px 40px rgba(0,0,0,.4);
+    }
+    .floating-icon { width: 31px; height: 31px; border-radius: 9px; display: grid; place-items: center; color: #d9c6ff; background: rgba(150,101,239,.17); }
+    .floating b { display: block; color: #e9e1f8; font-size: 11px; }.floating small { display: block; margin-top: 3px; color: #9188a2; font-size: 9px; }
+    .section { padding: 31px 0 91px; }
+    .section-head { max-width: 600px; margin: 0 auto 34px; text-align: center; }
+    .section-head .eyebrow { font-size: 9px; }
+    h2 { margin: 16px 0 10px; font-size: clamp(28px,4vw,39px); letter-spacing: -.055em; }
+    .section-head p { color: var(--muted); line-height: 1.7; margin: 0; font-size: 14px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .feature {
+      padding: 23px; border: 1px solid var(--border); border-radius: 16px;
+      background: linear-gradient(145deg, rgba(25,20,37,.78), rgba(15,12,22,.86));
+      min-height: 165px; transition: transform .2s ease, border-color .2s ease;
+    }
+    .feature:hover { transform: translateY(-4px); border-color: rgba(184,146,255,.31); }
+    .feature-icon { width: 35px; height: 35px; display: grid; place-items: center; border-radius: 10px; color: #c7a9ff; background: rgba(139,92,246,.13); }
+    .feature h3 { margin: 16px 0 7px; font-size: 14px; }
+    .feature p { margin: 0; color: #9c93ad; line-height: 1.65; font-size: 12px; }
+    .closing { margin: 0 0 75px; padding: 38px; display: flex; align-items: center; justify-content: space-between; gap: 25px;
+      border: 1px solid rgba(181,145,255,.2); border-radius: 20px;
+      background: radial-gradient(ellipse at 85% 50%, rgba(115,66,201,.2), transparent 55%), #120e1c; }
+    .closing h2 { margin: 0 0 8px; font-size: 25px; }.closing p { margin: 0; color: #a69bb9; font-size: 13px; }
+    footer { border-top: 1px solid rgba(201,178,255,.1); padding: 22px 0 28px; color: #81788f; font-size: 11px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+    .footer-brand { color: #c9b3ef; font-weight: 750; letter-spacing: .05em; }
+    :focus-visible { outline: 2px solid #c5a5ff; outline-offset: 4px; }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 58px; padding-top: 64px; }
+      .hero-copy { max-width: 620px; }.visual { width: min(620px, 100%); margin: 0 auto; }
+      .editor-card { transform: none; }.orb { right: 12%; }
+    }
+    @media (max-width: 650px) {
+      .wrap { width: min(100% - 32px, 550px); }
+      .nav { height: 68px; }.nav-right { gap: 12px; }.nav-right a:not(.nav-download) { display:none; }
+      .nav-download { padding: 9px 12px; font-size: 12px; }
+      .hero { min-height: auto; padding: 58px 0 72px; gap: 48px; }
+      h1 { font-size: clamp(49px, 13vw, 68px); }
+      .hero-copy { font-size: 15px; }.actions { align-items: stretch; flex-direction: column; max-width: 310px; }
+      .download, .secondary { width: 100%; }.fineprint { gap: 11px; font-size: 10px; }
+      .editor-body { grid-template-columns: 105px 1fr; min-height: 300px; }.filebar { padding: 15px 8px; font-size: 9px; }.code { padding: 20px 8px; font-size: 9px; }
+      .floating { right: 7px; bottom: -35px; }.feature-grid { grid-template-columns: 1fr; }.feature { min-height: 0; }
+      .closing { margin-bottom: 55px; padding: 25px; align-items: flex-start; flex-direction: column; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <header class="wrap nav">
+    <a class="brand" href="#" aria-label="Mostly Code home">
+      <span class="brand-mark">M</span>
+      <span class="brand-word">MOSTLY <span>CODE</span></span>
+    </a>
+    <nav class="nav-right" aria-label="Main navigation">
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a class="nav-download" href="./MostlyCode.exe" download="MostlyCode.exe">Get Mostly Code ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="wrap hero" id="about">
+      <div>
+        <div class="eyebrow"><span class="pulse"></span> Your code. Your machine. Your space.</div>
+        <h1>Mostly Code.<span class="accent">Pure focus.</span></h1>
+        <p class="hero-copy"><strong>Mostly Code. No logging in, no registering, pure coding. just for you locally.</strong> Open your editor, build something great, and keep your workflow yours.</p>
+        <div class="actions">
+          <a class="download" href="./MostlyCode.exe" download="MostlyCode.exe" aria-label="Download MostlyCode.exe">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.75v11.5m0 0 4.25-4.25M12 15.25 7.75 11M4.75 17.25v2A1.75 1.75 0 0 0 6.5 21h11a1.75 1.75 0 0 0 1.75-1.75v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download <span aria-hidden="true">→</span>
+          </a>
+          <a class="secondary" href="#features">Discover the vibe <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="fineprint">
+          <span><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> No account required</span>
+          <span><svg viewBox="0 0 20 20" fill="none"><path d="M10 2.5 4 5v4.5c0 3.8 2.6 6.5 6 8 3.4-1.5 6-4.2 6-8V5l-6-2.5Z" stroke="currentColor" stroke-width="1.4"/><path d="m7.4 9.9 1.7 1.7 3.6-3.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> Local-first workflow</span>
+          <span><svg viewBox="0 0 20 20" fill="none"><path d="M3 5.5h14M5.5 3v5m9-5v5M4 8.5h12v8H4v-8Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> Made for Windows</span>
+        </div>
+      </div>
+
+      <div class="visual" aria-label="Illustration of the Mostly Code editor">
+        <div class="orb"></div>
+        <div class="editor-card">
+          <div class="editor-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="editor-title">mostly-code — workspace</span></div>
+          <div class="editor-body">
+            <aside class="filebar">
+              <div class="label">EXPLORER</div>
+              <span class="file">⌄ src</span>
+              <span class="file active"><span class="cpp">C++</span> main.cpp</span>
+              <span class="file"><span class="hpp">H</span> utils.hpp</span>
+              <span class="file"><span class="cpp">C++</span> utils.cpp</span>
+              <span class="file"><span class="py">Py</span> script.py</span>
+              <span class="file">⌄ assets</span>
+              <span class="file">◇ README.md</span>
+            </aside>
+            <div class="code" aria-hidden="true">
+              <span class="line"><i class="ln">1</i><span class="kw">#include</span> <span class="str">&lt;iostream&gt;</span></span>
+              <span class="line"><i class="ln">2</i></span>
+              <span class="line"><i class="ln">3</i><span class="kw">int</span> <span class="fn">main</span>() {</span>
+              <span class="line"><i class="ln">4</i>    <span class="type">std::cout</span> &lt;&lt; <span class="str">"Hello, world!"</span>;</span>
+              <span class="line"><i class="ln">5</i>    <span class="kw">return</span> <span class="num">0</span>;</span>
+              <span class="line"><i class="ln">6</i>}</span>
+              <span class="line"><i class="ln">7</i></span>
+              <span class="line"><i class="ln">8</i><span class="comment">// Keep it simple. Keep creating.</span></span>
+              <span class="line"><i class="ln">9</i><span class="kw">const</span> <span class="type">bool</span> <span class="fn">stayCurious</span> = <span class="kw">true</span>;</span>
+              <span class="line"><i class="ln">10</i><span class="comment">/* your next idea starts here */</span></span>
+            </div>
+          </div>
+          <div class="editor-bottom"><span>main.cpp &nbsp;·&nbsp; C++</span><span class="ready">● Ready</span><span>UTF-8 &nbsp; LF</span></div>
+        </div>
+        <div class="floating">
+          <div class="floating-icon">⌘</div>
+          <div><b>Your workspace, your rules</b><small>No sign-up screen. Just get coding.</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="features">
+      <div class="section-head">
+        <div class="eyebrow"><span class="pulse"></span> Less friction. More creation.</div>
+        <h2>Everything starts with an idea.</h2>
+        <p>A focused coding space with a simple philosophy: get in, write code, make things.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <div class="feature-icon">⌘</div>
+          <h3>No accounts. No barriers.</h3>
+          <p>No logging in and no registering. Open the app and get straight to your work.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon">{ }</div>
+          <h3>Made for code</h3>
+          <p>Work with your code files, keep projects organised, and stay in your flow.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon">◈</div>
+          <h3>Local by design</h3>
+          <p>Your workspace is meant to stay on your machine. Your projects, your control.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap closing">
+      <div>
+        <h2>Ready to get into the code?</h2>
+        <p>Download Mostly Code and make the next thing yours.</p>
+      </div>
+      <a class="download" href="./MostlyCode.exe" download="MostlyCode.exe">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.75v11.5m0 0 4.25-4.25M12 15.25 7.75 11M4.75 17.25v2A1.75 1.75 0 0 0 6.5 21h11a1.75 1.75 0 0 0 1.75-1.75v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Download Mostly Code
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div class="footer-brand">MOSTLY CODE</div>
+      <div>No logging in. No registering. Pure coding.</div>
+      <div>© <span id="year"></span> Mostly Code</div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
