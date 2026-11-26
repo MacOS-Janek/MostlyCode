@@ -167,6 +167,20 @@
     .feature-icon { width: 35px; height: 35px; display: grid; place-items: center; border-radius: 10px; color: #c7a9ff; background: rgba(139,92,246,.13); }
     .feature h3 { margin: 16px 0 7px; font-size: 14px; }
     .feature p { margin: 0; color: #9c93ad; line-height: 1.65; font-size: 12px; }
+    .requirements { padding: 5px 0 90px; }
+    .requirements-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .spec-card {
+      position: relative; overflow: hidden; padding: 26px; border-radius: 17px;
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, rgba(26,20,40,.9), rgba(15,12,22,.95));
+    }
+    .spec-card.recommended { border-color: rgba(167,123,255,.32); box-shadow: inset 0 1px 0 rgba(198,166,255,.08), 0 15px 50px rgba(90,47,160,.12); }
+    .spec-kicker { color: #b99aff; font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    .spec-card h3 { margin: 10px 0 17px; font-size: 21px; letter-spacing: -.04em; }
+    .spec-list { display: grid; gap: 13px; margin: 0; padding: 0; list-style: none; }
+    .spec-list li { display: grid; grid-template-columns: 108px 1fr; gap: 14px; align-items: start; color: #c9c1d8; font-size: 12px; line-height: 1.55; }
+    .spec-list strong { color: #8f879f; font-size: 11px; font-weight: 600; }
+    .spec-note { max-width: 760px; margin: 20px auto 0; color: #8f879f; font-size: 11px; line-height: 1.7; text-align: center; }
     .closing { margin: 0 0 75px; padding: 38px; display: flex; align-items: center; justify-content: space-between; gap: 25px;
       border: 1px solid rgba(181,145,255,.2); border-radius: 20px;
       background: radial-gradient(ellipse at 85% 50%, rgba(115,66,201,.2), transparent 55%), #120e1c; }
@@ -192,6 +206,8 @@
       .floating { right: 7px; bottom: -35px; }.feature-grid { grid-template-columns: 1fr; }.feature { min-height: 0; }
       .closing { margin-bottom: 55px; padding: 25px; align-items: flex-start; flex-direction: column; }
       .footer-inner { align-items: flex-start; flex-direction: column; }
+      .requirements-grid { grid-template-columns: 1fr; }
+      .spec-list li { grid-template-columns: 92px 1fr; }
     }
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
   </style>
@@ -204,7 +220,7 @@
     </a>
     <nav class="nav-right" aria-label="Main navigation">
       <a href="#features">Features</a>
-      <a href="#about">About</a>
+      <a href="#requirements">Requirements</a>
       <a class="nav-download" href="./MostlyCode.exe" download="MostlyCode.exe">Get Mostly Code ↗</a>
     </nav>
   </header>
@@ -289,6 +305,41 @@
           <p>Your workspace is meant to stay on your machine. Your projects, your control.</p>
         </article>
       </div>
+    </section>
+
+    <section class="wrap requirements" id="requirements">
+      <div class="section-head">
+        <div class="eyebrow"><span class="pulse"></span> Lightweight Windows editor</div>
+        <h2>System requirements.</h2>
+        <p>Mostly Code is designed to stay responsive on everyday Windows PCs. A faster CPU and SSD help when working with larger projects.</p>
+      </div>
+      <div class="requirements-grid">
+        <article class="spec-card">
+          <div class="spec-kicker">Minimum</div>
+          <h3>Ready to code</h3>
+          <ul class="spec-list">
+            <li><strong>Operating system</strong><span>Windows 10 64-bit or Windows 11</span></li>
+            <li><strong>Memory</strong><span>4 GB DDR4 RAM</span></li>
+            <li><strong>Processor</strong><span>Intel Core i3-6100 or AMD Ryzen 3 1200 (or equivalent)</span></li>
+            <li><strong>Graphics</strong><span>Integrated graphics with DirectX 11 support</span></li>
+            <li><strong>Storage</strong><span>100 MB free space</span></li>
+            <li><strong>Display</strong><span>1280 × 720</span></li>
+          </ul>
+        </article>
+        <article class="spec-card recommended">
+          <div class="spec-kicker">Recommended</div>
+          <h3>Extra smooth workflow</h3>
+          <ul class="spec-list">
+            <li><strong>Operating system</strong><span>Windows 11 64-bit</span></li>
+            <li><strong>Memory</strong><span>8 GB DDR4 RAM or more</span></li>
+            <li><strong>Processor</strong><span>Intel Core i5-8400 or AMD Ryzen 5 2600 (or better)</span></li>
+            <li><strong>Graphics</strong><span>Modern integrated graphics or dedicated GPU</span></li>
+            <li><strong>Storage</strong><span>SSD with 250 MB free space</span></li>
+            <li><strong>Display</strong><span>1920 × 1080</span></li>
+          </ul>
+        </article>
+      </div>
+      <p class="spec-note">The editor can open and edit files without installing a compiler or interpreter. Running C/C++, Python, or JavaScript files requires the corresponding toolchain (such as GCC, Python, or Node.js) to be installed separately.</p>
     </section>
 
     <section class="wrap closing">
